@@ -1,0 +1,170 @@
+{% load staticfiles %}
+<!--DOCTYPE html -->
+<html>
+<head>
+<title>{% block head_title %} Notebook {% endblock head_title %}</title>
+
+{% block init_static %}
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <!--************************************************************-->
+    <title>{% block title %} Adblock sucks! {% endblock title%}</title>
+    <!--************************************************************-->
+    <link rel="shortcut icon" href="{%   static 'images/gt_favicon.png' %}">
+    
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+    <!-- Custom styles for our template -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}" media="screen" >
+    <link rel="stylesheet" href="{% static 'css/main.css' %} ">
+    
+    <!--************************************************************-->
+    {% block javascript %}
+    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/static/js/headroom.min.js"></script>
+    <script src="/static/js/jQuery.headroom.min.js"></script>
+    <script src="/static/js/template.js"></script>
+    
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    
+    {% endblock javascript%}
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.js"></script>
+    <script src="static/js/respond.min.js"></script>
+    <![endif]-->
+    {% endblock init_static %}
+
+</head>
+
+<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>-->
+
+
+<body>
+
+{% block navbar%}
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top headroom" >
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Button for smallest screens -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a class="navbar-brand" href="{% url 'content:list_record' %}"><img src="/static/images/logo1.png" alt="Progressus HTML5 template"></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right">
+                    
+                    <!-- Authenticate menu-->
+                    {% if request.user.is_authenticated %}
+                        
+                        <li id="menu_add_site_li_id"><a href="{% url 'content:add_record' %}">Add contact</a></li>
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome ( {{request.user.username}} )<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="{% url 'loginsys:logout' %}">Logout</a></li>
+                        </ul>
+                        </li>
+
+                    {% else %}
+                        <li class="active"><a class="btn" href="{% url 'loginsys:login' %}">Sign In</a></li>
+                        <li class="active"><a class="btn" href="{% url 'loginsys:register' %}">Sign Up</a></li>
+                    {% endif %}
+                    <!-- Authenticate menu-->
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+    
+    <header id="head" class="secondary"></header> 
+    
+    <!-- /.navbar -->
+    {% endblock navbar%}
+
+
+    {% block content %}{% endblock content %}
+
+
+
+
+
+    {% block footer%}
+        <footer id="footer" class="top-space">
+
+        <div class="footer1">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-md-3 widget">
+                        <h3 class="widget-title">Contact</h3>
+                        <div class="widget-body">
+                            <p>8 999 209 72 53<br>
+                                <a href="mailto:#">falko.ftk@gmail.com</a><br>
+                                <br>
+                                16 Kharchenko street, St. Petersburg
+                            </p>    
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 widget">
+                        <h3 class="widget-title">About me</h3>
+                        <div class="widget-body">
+                            <p>I would like to start a career in a team of qualified experienced employees. It takes over all experience and knowledge to achieve the rank of Senior developer and in perspective Team leader</p>
+                            <p>I like to speak in public, especially at scientific conferences. I love sports such as running, cross fit, football. I try not to miss interesting articles on Habrahabr and Formula 1 races</p>
+                        </div>
+                    </div>
+
+                </div> <!-- /row of widgets -->
+            </div>
+        </div>
+
+        <div class="footer2">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-md-6 widget">
+                        <div class="widget-body">
+                            <p class="simplenav">
+                                <a href="{% url 'content:list_record' %}">Home</a> | 
+                                {% if request.user.is_authenticated %}
+                                | <a href="{% url 'content:add_record' %}">Add site</a>
+                                | <a href="{% url 'content:list_record' %}">My sites</a>
+                                {% else %}
+                                | <b><a href="{% url 'loginsys:login' %}">Sign in</a></b>
+                                | <b><a href="{% url 'loginsys:register' %}">Sign up</a></b>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 widget">
+                        <div class="widget-body">
+                            <p class="text-right">
+                                Copyright &copy; 2016, notebook.falko 
+                            </p>
+                        </div>
+                    </div>
+
+                </div> <!-- /row of widgets -->
+            </div>
+        </div>
+        </footer>
+    {% endblock footer%}
+
+
+
+</body>
+</html>

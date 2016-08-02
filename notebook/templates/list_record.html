@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+		<div class="row">
+			
+			<!-- Sidebar -->
+			<aside class="col-md-4 sidebar sidebar-left">
+
+				<div class="row widget">
+					<div class="col-xs-12">
+						<h4><b>Birthday reminder</b></h4>
+						{% if queryset_birthday %}
+							{% for today in queryset_birthday %}
+							<p><b>{{today.full_name}} : {{today.phone_number}} <img src="/static/images/birthday.png" alt="" </b></p>
+							<hr/>
+						{% endfor %}
+						{% else %}
+							<p>Today there aren't birthday in your contacts</p>
+						{% endif %}
+					</div>
+				</div>
+				<div class="row widget">
+					<div class="col-xs-12">
+						<h4>Contact center</h4>
+						<p><img src="/static/images/contact.png" alt=""></p>
+					</div>
+				</div>
+				<div class="row widget">
+					<div class="col-xs-12">
+						
+					</div>
+				</div>
+
+			</aside>
+			<!-- /Sidebar -->
+
+			<!-- Article main content -->
+			<article class="col-md-8 maincontent">
+				<!--<header class="page-header">
+					<h1 class="page-title">Contacts</h1>
+				</header>-->
+					<div class="container">
+						  <h2>Contacts / <a href="{% url 'content:add_record' %}">New contact</a></h2>
+						  <p><form method='GET' action=''> <input type='text' name='q' placeholder='Search' value='{{ request.GET.q }}'/>
+                        	<input type='submit' value='Go' />
+                        	</form></p>            
+						  <table class="table table-striped">
+						    <thead>
+						      <tr>
+						        <th>Fullname</th>
+						        <th>Phone</th>
+						        <th>Birthday</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    {% for obj in object_list %}
+						      <tr>
+						        <td><a href='{% url "content:update_record" id=obj.id %}'>{{obj.full_name}}</a></td>
+						        <td>{{obj.phone_number}}</td>
+
+						        {% if obj.birthday %}
+						        <td>{{obj.birthday}}</td>
+						        {% else %}
+						        <td>---</td>
+						        {% endif %}
+						        <td><a href='{% url "content:delete_record" id=obj.id %}'><b>delete</b></a></td>
+						      </tr>
+						    {% endfor %}
+						    </tbody>
+						  </table>
+					</div>
+			</article>
+			<!-- /Article -->
+
+		</div>
+	</div>	<!-- /container -->
+
+
+
+{% endblock content %}

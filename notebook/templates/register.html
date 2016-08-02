@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+<!-- container -->
+    <div class="container">
+
+        <div class="row">
+            
+            <!-- Article main content -->
+
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Registration</h1>
+                </header>
+                
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="thin text-center">Create an account</h3>
+                            <hr>
+
+                            <form method="post" action="{% url 'loginsys:register' %}">
+                                {% csrf_token %}
+
+                                <div class="top-margin">
+                                    {{ form.username.errors }}
+                                    <p class="required"><label class="required" for="id_username">Username </label> 
+                                    <input id="id_username" maxlength="30" placeholder="Username" name="username" type="text" class="form-control"/> </p>
+
+                                </div>
+
+                                <div class="row top-margin">
+                                    <div class="col-sm-6">
+                                        {{ form.password1.errors }}
+                                        <p class="required"><label class="required" for="id_password1">Password </label> 
+                                        <input id="id_password1" name="password1" placeholder="Password" type="password" class="form-control"/></p>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form.password2.errors }}
+                                        <p class="required"><label class="required" for="id_password2">Confirm Password </label> 
+                                        <input id="id_password2" name="password2" placeholder="Confirm password" type="password" class="form-control"/> </p>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        
+                                        <button class="btn btn-action" type="submit">Create</button>
+                                    </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </article>
+            
+            
+            <!-- /Article -->
+
+        </div>
+    </div>    <!-- /container -->
+
+{% endblock content%}

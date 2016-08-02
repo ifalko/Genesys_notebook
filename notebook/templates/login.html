@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Sign in</h1>
+                </header>
+
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 class="thin text-center">Sign in</h3>
+                            <p class="text-center text-muted">To sign in, enter your username and password</p>
+                            <hr>
+
+                            <form method="post" action="{% url 'loginsys:login' %}">
+                                {% csrf_token %}
+
+                                {% if form.non_field_errors %}
+                                <ul class='form-errors'>
+                                {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                                </ul>
+                                {% endif %}
+
+                                {% if login_error %}
+                                    <p>{{ login_error }}</p>
+                                {% endif %}
+
+
+                                <div class="top-margin">
+                                    <p><label for="id_username">Username </label> <input id="id_username" name="username" type="text" class="form-control" /></p>
+                                </div>
+                                <div class="top-margin">
+                                    <p><label for="id_password">Password </label> <input id="id_password" name="password" type="password" class="form-control"/></p>
+                                </div>
+
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <!--<button class="btn btn-action" type="submit">Log in</button>-->
+                                        <input class="btn btn-action" type="submit" value="Sign in" />
+                                    </div>
+                                    <div class="col-lg-8">
+                                    <hr/>
+                                    <p class="text-muted">Don't have an account?<a href="{% url 'loginsys:register' %}" class="button">Sign up</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- /Article -->
+
+        </div>
+    </div>  <!-- /container -->
+
+{% endblock content %}
